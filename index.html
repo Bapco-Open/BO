@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Bapco Community App – Mockup</title>
+<style>
+  :root{
+    --brand:#D62828; /* primary */
+    --brand-dark:#a61e1e;
+    --accent:#003049; /* header text */
+    --bg:#f7f8fa;
+    --card:#ffffff;
+    --muted:#6b7280;
+    --success:#159947;
+    --warning:#d97706;
+    --info:#2563eb;
+    --shadow:0 8px 24px rgba(0,0,0,.08);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:#101828;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.45}
+  a{color:var(--info);text-decoration:none}
+  img{max-width:100%;display:block}
+  /* App shell */
+  .app{max-width:1100px;margin:0 auto;display:flex;min-height:100vh;flex-direction:column}
+  header{
+    position:sticky;top:0;z-index:50;background:linear-gradient(90deg,#fff, #fef7f7);
+    border-bottom:1px solid #eee; box-shadow:0 2px 10px rgba(0,0,0,.03)
+  }
+  .topbar{display:flex;gap:.75rem;align-items:center;justify-content:space-between;padding:.8rem .9rem}
+  .brand{display:flex;align-items:center;gap:.6rem}
+  .logo{width:36px;height:36px;border-radius:10px;background:var(--brand);box-shadow:var(--shadow);display:grid;place-items:center;color:#fff;font-weight:800}
+  .title{font-weight:800;color:var(--accent);letter-spacing:.2px}
+  .points-pill{background:#fff;border:1px solid #eee;border-radius:999px;padding:.35rem .7rem;display:flex;align-items:center;gap:.4rem;color:#0f172a}
+  .pill-dot{width:8px;height:8px;border-radius:50%;background:gold}
+  .search{flex:1;display:flex;gap:.5rem;align-items:center;border:1px solid #e5e7eb;border-radius:999px;background:#fff;padding:.5rem .7rem;margin-left:.6rem}
+  .search input{border:none;outline:none;flex:1;font-size:.95rem}
+  .lang{border:none;background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:.4rem .6rem}
+
+  /* Tabs (bottom nav on mobile, top on desktop) */
+  nav.tabs{
+    position:sticky;bottom:0;z-index:40;background:#fff;border-top:1px solid #eee;display:flex;justify-content:space-around;gap:.25rem
+  }
+  nav.tabs button{
+    flex:1;padding:.6rem .4rem;background:none;border:none;color:#334155;display:flex;flex-direction:column;align-items:center;gap:.25rem
+  }
+  nav.tabs button.active{color:var(--brand)}
+  nav.tabs .icon{font-size:1.15rem}
+  @media(min-width:900px){
+    nav.tabs{position:static;border-top:none;justify-content:flex-start;gap:.4rem;padding:.4rem .9rem;border-bottom:1px solid #eee}
+    nav.tabs button{flex:0 0 auto;padding:.6rem .8rem;border-radius:12px}
+    nav.tabs button.active{background:#fff0f0}
+  }
+
+  main{flex:1;padding:1rem;display:grid;gap:1rem}
+  .grid{display:grid;gap:1rem}
+  .cards{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+  .card{background:var(--card);border:1px solid #eee;border-radius:var(--radius);box-shadow:var(--shadow);padding:1rem}
+  .card h3{margin:.2rem 0 .5rem}
+  .badge{font-size:.7rem;background:#f1f5f9;color:#0f172a;border-radius:999px;padding:.2rem .5rem}
+  .kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem}
+  .kpi{background:#fff;border:1px dashed #e5e7eb;border-radius:12px;padding:.7rem}
+  .progress{height:8px;background:#f1f5f9;border-radius:999px;overflow:hidden}
+  .progress > span{display:block;height:100%;background:var(--success)}
+  .row{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center}
+  .btn{background:var(--brand);color:#fff;border:none;border-radius:12px;padding:.55rem .8rem;cursor:pointer;box-shadow:0 6px 16px rgba(214,40,40,.25);transition:.15s}
+  .btn:hover{background:var(--brand-dark)}
+  .btn.ghost{background:#fff;color:var(--brand);border:1px solid #ffd2d2;box-shadow:none}
+  .btn.icon{display:inline-flex;align-items:center;gap:.4rem}
+  .chip{background:#fff;border:1px solid #eee;border-radius:999px;padding:.3rem .6rem;color:#334155}
+  .muted{color:var(--muted);font-size:.92rem}
+  .pill{background:#fff7ed;color:#7c2d12;border:1px solid #fed7aa;border-radius:10px;padding:.2rem .45rem;font-size:.78rem}
+  .list{display:grid;gap:.8rem}
+  .list-item{display:flex;gap:.8rem}
+  .avatar{width:40px;height:40px;border-radius:12px;background:#fee2e2;display:grid;place-items:center;color:#b91c1c;font-weight:700}
+  .event{display:grid;gap:.45rem}
+  .event .meta{display:flex;gap:.4rem;flex-wrap:wrap}
+  .tag{background:#eef2ff;color:#3730a3;border-radius:8px;padding:.15rem .45rem;font-size:.78rem}
+  .tag.green{background:#dcfce7;color:#065f46}
+  .tag.gold{background:#fef9c3;color:#854d0e}
+  .map{background:linear-gradient(45deg,#e2e8f0,#f8fafc);border:1px solid #e5e7eb;border-radius:12px;height:140px;display:grid;place-items:center;color:#475569}
+
+  /* Modal */
+  .modal{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:flex-end}
+  .modal.open{display:flex}
+  .sheet{background:#fff;width:100%;max-height:85vh;border-top-left-radius:16px;border-top-right-radius:16px;overflow:auto;padding:1rem}
+  @media(min-width:600px){.modal{align-items:center;justify-content:center}.sheet{max-width:540px;border-radius:16px}}
+
+  /* Forms */
+  label{font-size:.9rem;color:#334155}
+  input,select,textarea{width:100%;padding:.6rem;border:1px solid #e5e7eb;border-radius:10px;background:#fff}
+  .inline{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+  .divider{height:1px;background:#eee;margin:.6rem 0}
+
+  /* Hidden screens */
+  .screen{display:none}
+  .screen.active{display:block}
+
+  /* Header quick filters */
+  .filters{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.4rem}
+  .sensor-widget{display:flex;gap:.6rem;align-items:center;background:#fff;border:1px solid #eee;padding:.4rem .6rem;border-radius:10px}
+  .dot{width:10px;height:10px;border-radius:50%}
+  .dot.green{background:#22c55e}.dot.orange{background:#f59e0b}.dot.red{background:#ef4444}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo">B</div>
+        <div>
+          <div class="title">Bapco Community</div>
+          <div class="filters">
+            <span class="sensor-widget"><span class="dot green"></span><strong>PM2.5:</strong> 12 µg/m³ Good</span>
+            <span class="sensor-widget"><span class="dot orange"></span><strong>Heat Index:</strong> 35°C Caution</span>
+          </div>
+        </div>
+      </div>
+      <div class="search" style="max-width:520px;">
+        <span>🔎</span>
+        <input id="search" placeholder="Search events, courses, challenges..." />
+      </div>
+      <div class="row">
+        <button class="points-pill" id="openProfile"><span class="pill-dot"></span><strong>1,240</strong> pts</button>
+        <select class="lang" aria-label="Language">
+          <option>EN</option>
+          <option>AR</option>
+        </select>
+      </div>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Primary">
+      <button class="tab active" data-screen="home"><span class="icon">🏠</span><span>Home</span></button>
+      <button class="tab" data-screen="awareness"><span class="icon">📚</span><span>Awareness</span></button>
+      <button class="tab" data-screen="volunteer"><span class="icon">🤝</span><span>Volunteer</span></button>
+      <button class="tab" data-screen="innovation"><span class="icon">💡</span><span>Innovation Lab</span></button>
+      <button class="tab" data-screen="rewards"><span class="icon">🎁</span><span>Rewards</span></button>
+      <button class="tab" data-screen="profile"><span class="icon">👤</span><span>Profile</span></button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Home -->
+    <section id="home" class="screen active">
+      <div class="grid">
+        <div class="card">
+          <h2>Welcome back, Sara</h2>
+          <p class="muted">Be Brave. Be Ambitious. Be Progressive. Be Conscious. Be Open.</p>
+          <div class="kpis">
+            <div class="kpi">
+              <div class="row" style="justify-content:space-between">
+                <strong>Volunteer hours</strong><span class="pill">Goal 40</span>
+              </div>
+              <div class="progress" aria-label="Volunteer progress"><span style="width:55%"></span></div>
+              <small class="muted">22 / 40 hrs</small>
+            </div>
+            <div class="kpi">
+              <div class="row" style="justify-content:space-between">
+                <strong>Innovation milestones</strong><span class="pill">This quarter</span>
+              </div>
+              <div class="progress"><span style="width:30%"></span></div>
+              <small class="muted">3 / 10</small>
+            </div>
+          </div>
+          <div class="row" style="margin-top:.7rem">
+            <button class="btn icon" data-open="joinEvent"><span>➕</span>Join event</button>
+            <button class="btn ghost icon" data-open="takeCourse"><span>📘</span>Take a micro-course</button>
+          </div>
+        </div>
+
+        <div class="cards">
+          <div class="card">
+            <h3>Upcoming volunteer events</h3>
+            <div class="list">
+              <div class="list-item">
+                <div class="avatar">🌊</div>
+                <div class="event">
+                  <strong>Shoreline Cleanup – Hidd</strong>
+                  <div class="meta">
+                    <span class="tag green">Family-friendly</span>
+                    <span class="tag">Sat 9:00</span>
+                    <span class="tag gold">+100 pts</span>
+                  </div>
+                  <div class="row">
+                    <button class="btn small" data-open="event1">View</button>
+                    <button class="btn ghost small" data-action="save">Save</button>
+                  </div>
+                </div>
+              </div>
+              <div class="list-item">
+                <div class="avatar">🌿</div>
+                <div class="event">
+                  <strong>Mangrove Planting – Tubli Bay</strong>
+                  <div class="meta">
+                    <span class="tag">Sun 16:30</span>
+                    <span class="tag green">Shade available</span>
+                    <span class="tag gold">+120 pts</span>
+                  </div>
+                  <div class="row">
+                    <button class="btn small" data-open="event2">View</button>
+                    <button class="btn ghost small">Save</button>
+                  </div>
+                </div>
+              </div>
+              <div class="list-item">
+                <div class="avatar">♻️</div>
+                <div class="event">
+                  <strong>E‑waste Collection Drive – Isa Town</strong>
+                  <div class="meta">
+                    <span class="tag">Fri 10:00</span>
+                    <span class="tag">Indoor</span>
+                    <span class="tag gold">+80 pts</span>
+                  </div>
+                  <div class="row">
+                    <button class="btn small" data-open="event3">View</button>
+                    <button class="btn ghost small">Save</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Innovation challenges</h3>
+            <ul class="list">
+              <li class="list-item">
+                <div class="avatar">🧠</div>
+                <div>
+                  <strong>Reduce shoreline plastic by 30%</strong>
+                  <div class="muted">Submit an idea or prototype. Top ideas get micro‑grants.</div>
+                  <div class="row"><button class="btn" data-open="challenge1">View challenge</button></div>
+                </div>
+              </li>
+              <li class="list-item">
+                <div class="avatar">🌬️</div>
+                <div>
+                  <strong>Teach air quality in 15 schools</strong>
+                  <div class="muted">Create lesson plans or student-built sensors.</div>
+                  <div class="row"><button class="btn ghost" data-open="challenge2">Contribute</button></div>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Awareness spotlight</h3>
+            <div class="row" style="gap:.8rem">
+              <div class="chip">Air Quality 101 • +50 pts</div>
+              <div class="chip">Heat Safety • +30 pts</div>
+              <div class="chip">Recycling Basics • +40 pts</div>
+            </div>
+            <div class="divider"></div>
+            <p class="muted">Complete a 5‑minute micro‑course and earn points toward rewards.</p>
+            <button class="btn" data-open="takeCourse">Start learning</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Awareness -->
+    <section id="awareness" class="screen">
+      <div class="row" style="justify-content:space-between;align-items:flex-end">
+        <h2>Awareness Hub</h2>
+        <div class="inline">
+          <select>
+            <option>All topics</option>
+            <option>Environment</option>
+            <option>Safety</option>
+            <option>Community</option>
+          </select>
+          <select>
+            <option>All levels</option>
+            <option>Beginner</option>
+            <option>Intermediate</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <span class="badge">Micro‑course • +50 pts</span>
+          <h3>Air Quality 101</h3>
+          <p class="muted">Understand PM2.5, good habits, and how we measure air.</p>
+          <div class="row">
+            <button class="btn" data-open="courseAir">Start</button>
+            <button class="btn ghost">Outline</button>
+          </div>
+        </div>
+        <div class="card">
+          <span class="badge">Explainer</span>
+          <h3>Refinery Safety: Myth vs Fact</h3>
+          <p class="muted">Transparent answers to common community questions.</p>
+          <div class="row">
+            <button class="btn ghost">Read</button>
+          </div>
+        </div>
+        <div class="card">
+          <span class="badge">Quiz • +20 pts</span>
+          <h3>Heat Safety Basics</h3>
+          <p class="muted">Check your knowledge before outdoor events.</p>
+          <div class="row">
+            <button class="btn" data-open="quizHeat">Take quiz</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Volunteer -->
+    <section id="volunteer" class="screen">
+      <div class="row" style="justify-content:space-between;align-items:flex-end">
+        <h2>Volunteer Marketplace</h2>
+        <div class="inline">
+          <select id="filterDate">
+            <option>Any date</option><option>Today</option><option>This week</option>
+          </select>
+          <select id="filterType">
+            <option>All types</option><option>Cleanup</option><option>Planting</option><option>E‑waste</option><option>Training</option>
+          </select>
+          <select id="filterAccess">
+            <option>Any access</option><option>Family‑friendly</option><option>Wheelchair</option><option>Shade</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <h3>Shoreline Cleanup – Hidd</h3>
+          <div class="muted">Sat 9:00 • Capacity 80 • Meeting point: Hidd Park</div>
+          <div class="map">Map preview</div>
+          <div class="row" style="justify-content:space-between">
+            <div class="inline">
+              <span class="tag green">Family‑friendly</span>
+              <span class="tag gold">+100 pts</span>
+            </div>
+            <button class="btn" data-open="event1">Register</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Mangrove Planting – Tubli Bay</h3>
+          <div class="muted">Sun 16:30 • Capacity 50 • Meeting point: North Pier</div>
+          <div class="map">Map preview</div>
+          <div class="row" style="justify-content:space-between">
+            <div class="inline">
+              <span class="tag">Shade</span>
+              <span class="tag gold">+120 pts</span>
+            </div>
+            <button class="btn" data-open="event2">Register</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>E‑waste Collection Drive – Isa Town</h3>
+          <div class="muted">Fri 10:00 • Capacity 100 • Indoor Hall A</div>
+          <div class="map">Map preview</div>
+          <div class="row" style="justify-content:space-between">
+            <div class="inline">
+              <span class="tag">Indoor</span>
+              <span class="tag gold">+80 pts</span>
+            </div>
+            <button class="btn" data-open="event3">Register</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Innovation Lab -->
+    <section id="innovation" class="screen">
+      <div class="row" style="justify-content:space-between;align-items:flex-end">
+        <h2>Innovation Lab</h2>
+        <button class="btn icon" data-open="submitIdea">➕ Submit idea</button>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <span class="badge">Challenge</span>
+          <h3>Reduce shoreline plastic by 30%</h3>
+          <p class="muted">Ideas for capture, behavior change, and circularity.</p>
+          <div class="row">
+            <button class="btn" data-open="challenge1">View details</button>
+            <button class="btn ghost" data-open="submitIdea">Submit idea</button>
+          </div>
+        </div>
+        <div class="card">
+          <span class="badge">Challenge</span>
+          <h3>Teach air quality in 15 schools</h3>
+          <p class="muted">Low‑cost sensors, great lesson plans, and student leadership.</p>
+          <div class="row">
+            <button class="btn ghost" data-open="challenge2">Contribute</button>
+          </div>
+        </div>
+        <div class="card">
+          <span class="badge">Incubation</span>
+          <h3>Community litter‑trap prototype</h3>
+          <p class="muted">Pilot in drainage canals near the promenade. Status: Building v0.2</p>
+          <div class="row">
+            <span class="pill">Milestone 2/5</span>
+            <button class="btn ghost">Track</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Rewards -->
+    <section id="rewards" class="screen">
+      <div class="row" style="justify-content:space-between;align-items:flex-end">
+        <h2>Rewards</h2>
+        <div class="inline">
+          <span class="muted">Your points:</span>
+          <strong id="pointsDisplay">1,240</strong>
+        </div>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <h3>Public transport voucher</h3>
+          <p class="muted">500 pts • Save on your commute.</p>
+          <div class="row">
+            <button class="btn" data-redeem="voucher">Redeem 500 pts</button>
+            <button class="btn ghost">Details</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Eco‑merch pack</h3>
+          <p class="muted">800 pts • Bottle + tote + badge.</p>
+          <div class="row">
+            <button class="btn" data-redeem="merch">Redeem 800 pts</button>
+            <button class="btn ghost">Details</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Meet‑the‑Engineer Tour</h3>
+          <p class="muted">1,200 pts • Exclusive small‑group session.</p>
+          <div class="row">
+            <button class="btn" data-redeem="tour">Redeem 1,200 pts</button>
+            <button class="btn ghost">Details</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Profile -->
+    <section id="profile" class="screen">
+      <div class="cards">
+        <div class="card">
+          <div class="row" style="justify-content:space-between">
+            <div class="row" style="gap:.8rem">
+              <div class="avatar">S</div>
+              <div>
+                <h3>Sara Ahmed</h3>
+                <div class="muted">Tier: Innovator • 1,240 pts</div>
+              </div>
+            </div>
+            <button class="btn ghost" id="editProfile">Edit</button>
+          </div>
+          <div class="divider"></div>
+          <div class="kpis">
+            <div class="kpi">
+              <strong>Completed courses</strong>
+              <div class="progress"><span style="width:70%"></span></div>
+              <small class="muted">7 / 10</small>
+            </div>
+            <div class="kpi">
+              <strong>Events attended</strong>
+              <div class="progress"><span style="width:60%"></span></div>
+              <small class="muted">12 / 20</small>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <h4>Recent activity</h4>
+          <ul class="list">
+            <li class="list-item"><div class="avatar">✅</div><div>Checked in to Shoreline Cleanup (+100 pts)</div></li>
+            <li class="list-item"><div class="avatar">🧪</div><div>Submitted idea to “Air quality in schools” (+80 pts)</div></li>
+            <li class="list-item"><div class="avatar">📘</div><div>Completed “Recycling Basics” (+40 pts)</div></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- Modals -->
+<div class="modal" id="modal-event1">
+  <div class="sheet">
+    <h3>Shoreline Cleanup – Hidd</h3>
+    <p class="muted">Sat 9:00 • HSE Briefing required • +100 pts</p>
+    <div class="map">Map preview</div>
+    <div class="divider"></div>
+    <label><input type="checkbox" id="hse1" /> I have read the HSE checklist</label>
+    <div class="row" style="margin-top:.6rem;justify-content:space-between">
+      <button class="btn ghost" data-close>Close</button>
+      <button class="btn" id="register1" disabled>Register</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="modal-event2">
+  <div class="sheet">
+    <h3>Mangrove Planting – Tubli Bay</h3>
+    <p class="muted">Sun 16:30 • Shade available • +120 pts</p>
+    <div class="map">Map preview</div>
+    <div class="divider"></div>
+    <div class="row"><button class="btn" id="checkin2">Simulate QR Check‑in</button><span class="muted">Use at event start</span></div>
+    <div class="row" style="margin-top:.6rem;justify-content:flex-end">
+      <button class="btn ghost" data-close>Close</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="modal-event3">
+  <div class="sheet">
+    <h3>E‑waste Collection Drive – Isa Town</h3>
+    <p class="muted">Fri 10:00 • Indoor Hall A • +80 pts</p>
+    <div class="map">Map preview</div>
+    <div class="divider"></div>
+    <div class="row" style="justify-content:space-between">
+      <button class="btn ghost" data-close>Close</button>
+      <button class="btn">Register</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="modal-challenge1">
+  <div class="sheet">
+    <h3>Challenge: Reduce shoreline plastic by 30%</h3>
+    <p class="muted">Submit interventions for capture, behavior change, or circularity. Top ideas receive micro‑grants and incubation support.</p>
+    <ul>
+      <li>Track: Capture (litter traps, booms)</li>
+      <li>Track: Education/behavior</li>
+      <li>Track: Recycling/circularity</li>
+    </ul>
+    <div class="row" style="justify-content:flex-end">
+      <button class="btn ghost" data-close>Close</button>
+      <button class="btn" data-open="submitIdea">Submit idea</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="modal-challenge2">
+  <div class="sheet">
+    <h3>Challenge: Teach air quality in 15 schools</h3>
+    <p class="muted">Create low‑cost sensors, lesson plans, and student leadership models.</p>
+    <div class="row" style="justify-content:flex-end">
+      <button class="btn ghost" data-close>Close</button>
+      <button class="btn" data-open="submitIdea">Contribute</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="modal-submitIdea">
+  <div class="sheet">
+    <h3>Submit your idea</h3>
+    <div class="divider"></div>
+    <label>Title<input id="ideaTitle" placeholder="e.g., Community litter‑trap pilot" /></label>
+    <label>Track
+      <select id="ideaTrack">
+        <option>Capture</option>
+        <option>Education/behavior</option>
+        <option>Circularity</option>
+      </select>
+    </label>
+    <label>Summary<textarea id="ideaSummary" rows="4" placeholder="Describe the problem, your solution, and expected impact..."></textarea></label>
+    <label>Estimated budget (optional)<input id="ideaBudget" placeholder="e.g., 800 BHD" /></label>
+    <div class="row" style="justify-content:flex-end;margin-top:.6rem">
+      <button class="btn ghost" data-close>Cancel</button>
+      <button class="btn" id="submitIdeaBtn">Submit (+80 pts)</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="modal-takeCourse">
+  <div class="sheet">
+    <h3>Micro‑course: Air Quality 101</h3>
+    <p class="muted">5 minutes • Complete to earn +50 pts</p>
+    <ol>
+      <li>What is PM2.5?</li>
+      <li>How we measure air quality</li>
+      <li>Protective habits on high‑AQI days</li>
+    </ol>
+    <div class="row" style="justify-content:flex-end">
+      <button class="btn ghost" data-close>Close</button>
+      <button class="btn" id="completeCourseBtn">Complete (+50 pts)</button>
+    </div>
+  </div>
+</div>
+
+<!-- Notifications -->
+<div class="modal" id="modal-toast">
+  <div class="sheet">
+    <h3 id="toastTitle">Success</h3>
+    <p id="toastMsg" class="muted">Action completed.</p>
+    <div class="row" style="justify-content:flex-end">
+      <button class="btn" data-close>OK</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Simple state
+  const screens = document.querySelectorAll('.screen');
+  const tabs = document.querySelectorAll('.tab');
+  const modals = {};
+  document.querySelectorAll('.modal').forEach(m => { modals[m.id] = m; });
+
+  function showScreen(id){
+    screens.forEach(s => s.classList.toggle('active', s.id===id));
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.screen===id));
+    window.scrollTo({top:0, behavior:'smooth'});
+    if(id==='rewards') updatePoints();
+  }
+
+  tabs.forEach(t => t.addEventListener('click', () => showScreen(t.dataset.screen)));
+
+  // Open specific modals
+  document.querySelectorAll('[data-open]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const key = btn.dataset.open;
+      if(key === 'joinEvent') openModal('modal-event1');
+      else if(key === 'takeCourse') openModal('modal-takeCourse');
+      else if(key === 'event1') openModal('modal-event1');
+      else if(key === 'event2') openModal('modal-event2');
+      else if(key === 'event3') openModal('modal-event3');
+      else if(key === 'challenge1') openModal('modal-challenge1');
+      else if(key === 'challenge2') openModal('modal-challenge2');
+      else if(key === 'submitIdea') openModal('modal-submitIdea');
+    });
+  });
+
+  document.querySelectorAll('[data-close]').forEach(btn => {
+    btn.addEventListener('click', () => closeModal(btn.closest('.modal').id));
+  });
+
+  function openModal(id){
+    modals[id]?.classList.add('open');
+  }
+  function closeModal(id){
+    modals[id]?.classList.remove('open');
+  }
+
+  // Points and simple actions
+  let points = 1240;
+  const pointsDisplay = document.getElementById('pointsDisplay');
+
+  function award(pts, title, msg){
+    points += pts;
+    updatePoints();
+    toast(`${title}`, `${msg} (+${pts} pts)`);
+  }
+  function updatePoints(){
+    if(pointsDisplay) pointsDisplay.textContent = points.toLocaleString();
+    document.querySelectorAll('.points-pill strong').forEach(el => el.textContent = points.toLocaleString());
+  }
+  function toast(title, msg){
+    const t = document.getElementById('modal-toast');
+    document.getElementById('toastTitle').textContent = title;
+    document.getElementById('toastMsg').textContent = msg;
+    openModal('modal-toast');
+  }
+
+  // Event 1 HSE confirm gate
+  const hse1 = document.getElementById('hse1');
+  const reg1 = document.getElementById('register1');
+  if(hse1 && reg1){
+    hse1.addEventListener('change', () => reg1.disabled = !hse1.checked);
+    reg1.addEventListener('click', () => {
+      closeModal('modal-event1');
+      award(10, 'Registered', 'Shoreline Cleanup – Hidd');
+    });
+  }
+
+  // Event 2 check-in simulation
+  const checkin2 = document.getElementById('checkin2');
+  if(checkin2){
+    checkin2.addEventListener('click', () => {
+      closeModal('modal-event2');
+      award(100, 'Checked in', 'Mangrove Planting – Tubli Bay');
+    });
+  }
+
+  // Course completion
+  const completeCourseBtn = document.getElementById('completeCourseBtn');
+  if(completeCourseBtn){
+    completeCourseBtn.addEventListener('click', () => {
+      closeModal('modal-takeCourse');
+      award(50, 'Course completed', 'Air Quality 101');
+    });
+  }
+
+  // Submit idea
+  const submitIdeaBtn = document.getElementById('submitIdeaBtn');
+  if(submitIdeaBtn){
+    submitIdeaBtn.addEventListener('click', () => {
+      const title = document.getElementById('ideaTitle').value || 'Your idea';
+      closeModal('modal-submitIdea');
+      award(80, 'Idea submitted', title);
+      showScreen('innovation');
+    });
+  }
+
+  // Profile quick open
+  document.getElementById('openProfile')?.addEventListener('click', () => showScreen('profile'));
+
+  // Redeem rewards
+  document.querySelectorAll('[data-redeem]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const type = btn.dataset.redeem;
+      const cost = type==='voucher' ? 500 : type==='merch' ? 800 : 1200;
+      if(points >= cost){
+        points -= cost; updatePoints();
+        toast('Redeemed', `You redeemed a ${type==='voucher'?'Public transport voucher': type==='merch'?'Eco‑merch pack':'Meet‑the‑Engineer Tour'}.`);
+      } else {
+        toast('Not enough points', 'Earn more points by volunteering, learning, or innovating.');
+      }
+    });
+  });
+
+  // Keyboard escape to close any modal
+  window.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape'){
+      Object.values(modals).forEach(m => m.classList.remove('open'));
+    }
+  });
+
+  // Simple client-side search (demo)
+  const search = document.getElementById('search');
+  if(search){
+    search.addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase();
+      document.querySelectorAll('h3').forEach(h => {
+        const card = h.closest('.card');
+        if(!card) return;
+        const text = (h.textContent + ' ' + (card.textContent||'')).toLowerCase();
+        card.style.display = q && !text.includes(q) ? 'none' : '';
+      });
+    });
+  }
+</script>
+</body>
+</html>
