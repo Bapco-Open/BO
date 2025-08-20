@@ -6,20 +6,19 @@
 <title>Bapco Open</title>
 <style>
   :root{
-    --brand:#D62828; /* primary */
+    --brand:#07114C; /* primary */
     --brand-dark:#a61e1e;
     --accent:#003049; /* header text */
     --bg:#f7f8fa;
     --card:#ffffff;
-    --muted:#6b7280;
-    --success:#159947;
-    --warning:#d97706;
-    --info:#2563eb;
-    --shadow:0 8px 24px rgba(0,0,0,.08);
-    --radius:14px;
+    --muted:#07114C;
+    --success:#07114C;
+    --warning:#07114C;
+    --info:#07114C;
+
   }
   *{box-sizing:border-box}
-  html,body{margin:0;padding:0;background:var(--bg);color:#101828;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.45}
+  html,body{margin:0;padding:0;background:var(--bg);color:#07114C;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.45}
   a{color:var(--info);text-decoration:none}
   img{max-width:100%;display:block}
   /* App shell */
@@ -31,6 +30,20 @@
   .topbar{display:flex;gap:.75rem;align-items:center;justify-content:space-between;padding:.8rem .9rem}
   .brand{display:flex;align-items:center;gap:.6rem}
   .logo{width:36px;height:36px;border-radius:10px;background:var(--brand);box-shadow:var(--shadow);display:grid;place-items:center;color:#fff;font-weight:800}
+.logo-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  display: block;
+  object-fit: contain;
+}
+@media (max-width: 480px) {
+  .logo-img {
+    width: 28px;
+    height: 28px;
+  }
+}
   .title{font-weight:800;color:var(--accent);letter-spacing:.2px}
   .points-pill{background:#fff;border:1px solid #eee;border-radius:999px;padding:.35rem .7rem;display:flex;align-items:center;gap:.4rem;color:#0f172a}
   .pill-dot{width:8px;height:8px;border-radius:50%;background:gold}
@@ -109,12 +122,14 @@
   <header>
     <div class="topbar">
       <div class="brand">
-        <div class="logo">B</div>
+        <div class="logo">
+  <img src="logo.svg" alt="Bapco Logo" class="logo-img" onerror="this.style.display='none'; this.parentElement.textContent='B';">
+</div>
         <div>
           <div class="title">Bapco Open</div>
           <div class="filters">
-            <span class="sensor-widget"><span class="dot green"></span><strong>PM2.5:</strong> 12 µg/m³ Good</span>
-            <span class="sensor-widget"><span class="dot orange"></span><strong>Heat Index:</strong> 35°C Caution</span>
+            <span class="sensor-widget"><span class="dot orange"></span><strong>PM2.5:</strong> 31 µg/m³ Moderate</span>
+            <span class="sensor-widget"><span class="dot red"></span><strong>Heat Index:</strong> 57°C Caution</span>
           </div>
         </div>
       </div>
