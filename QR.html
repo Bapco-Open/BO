@@ -114,12 +114,12 @@
     <p id="hackedMessage">Your phone has been hacked and your information has been stolen.</p>
 
     <p class="highlight" id="jokeMessage">
-      Just kidding! This was part of our SHEQ moment to raise awareness about the risks of QR codes and the importance of cybersecurity.
+      Just kidding! This was part of our SHAQ moment to raise awareness about the risks of QR codes and the importance of cybersecurity.
     </p>
 
-    <img src="images/qr.png" alt="Cybersecurity Awareness" class="image" id="jokeImage" />
+    <img src="qr.png" alt="Cybersecurity Awareness" class="image" id="jokeImage" />
 
-    <p><strong>— Bapco Open Team</strong></p>
+    <p id="teamName" style="display: none;"><strong>— Bapco Open Team</strong></p>
 
     <a href="https://bapco-open.github.io/BO" id="returnButton">
       <button>🔐 Back to Safety</button>
@@ -171,6 +171,7 @@
         mainTitle.textContent = 'Oops! You have been phished🪝';
         hackedMessage.textContent = "Don't worry! Your phone is completely safe.";
         logoReveal.style.display = 'block';
+        document.getElementById('teamName').style.display = 'block';
         jokeMessage.classList.add('show');
         jokeImage.classList.add('show');
         returnButton.style.display = 'inline-block';
