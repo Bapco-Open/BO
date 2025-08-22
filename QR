@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bapco Open Cybersecurity Awareness</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      text-align: center;
+      padding: 40px 20px;
+      color: #333;
+    }
+
+    .logo {
+      max-width: 200px;
+      margin-bottom: 30px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #c0392b;
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.2em;
+      margin-bottom: 15px;
+    }
+
+    .joke,
+    .image {
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    .show {
+      opacity: 1;
+    }
+
+    .joke {
+      color: #27ae60;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    .image {
+      margin-top: 30px;
+      max-width: 100%;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <img src="logo.svg" alt="Bapco Open Logo" class="logo">
+
+  <div class="container">
+    <h1>Oops! You have been phished</h1>
+    <p>Your phone has been hacked and your information has been stolen.</p>
+
+    <!-- Joke and Image (hidden initially) -->
+    <p class="joke" id="jokeMessage">
+      Just kidding! This was part of our SHEQ moment to raise awareness about the risks of QR codes and the importance of cybersecurity.
+    </p>
+
+    <img src="awareness-photo.jpg" alt="Cybersecurity Awareness" class="image" id="awarenessImage">
+
+    <p><strong>— Bapco Open Team</strong></p>
+  </div>
+
+  <script>
+    // Show joke message and image after 3 seconds
+    window.onload = function() {
+      setTimeout(() => {
+        document.getElementById('jokeMessage').classList.add('show');
+        document.getElementById('awarenessImage').classList.add('show');
+      }, 3000);
+    };
+  </script>
+
+</body>
+</html>
