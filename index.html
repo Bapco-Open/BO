@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title><em class="animated-italic">"B"</em> Open</title>
+<title><em>"B"</em> Open</title>
 <style>
   #preloader {
   position: fixed;
@@ -144,8 +144,34 @@
   .dot.green{background:#22c55e}.dot.orange{background:#f59e0b}.dot.red{background:#ef4444}
 .animated-italic {
   font-style: italic;
+  animation: fadeInOut 2s ease-in-out infinite;
+}
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+  .typewriter {
   display: inline-block;
-  animation: pulse 1.5s ease-in-out infinite, fadeInOut 2s ease-in-out infinite;
+  overflow: hidden;
+  border-right: 2px solid black;
+  white-space: nowrap;
+  font-style: italic;
+  animation: typing 3s steps(30, end), blink 0.75s step-end infinite;
+}
+
+/* Optional delay for second element */
+.delay-1 {
+  animation-delay: 3s;
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink {
+  0%, 100% { border-color: transparent; }
+  50% { border-color: black; }
 }
 </style>
 </head>
@@ -169,8 +195,15 @@
         <div>
           <div class="title"><em class="animated-italic">"B"</em> Open</div>
           <div class="filters">
-            <span class="sensor-widget"><span class="dot orange"></span><strong>PM2.5:</strong> 31 µg/m³ Moderate</span>
-            <span class="sensor-widget"><span class="dot red"></span><strong>Heat Index:</strong> 57°C Caution</span>
+<span class="sensor-widget">
+  <span class="dot orange"></span>
+  <span class="typewriter"><strong>PM2.5:</strong> 31 µg/m³ Moderate</span>
+</span>
+
+<span class="sensor-widget">
+  <span class="dot red"></span>
+  <span class="typewriter delay-1"><strong>Heat Index:</strong> 57°C Caution</span>
+</span>
           </div>
         </div>
       </div>
@@ -201,8 +234,8 @@
     <section id="home" class="screen active">
       <div class="grid">
         <div class="card">
-          <h2>Welcome back, Sara</h2>
-          <p class="muted">Be Brave. Be Ambitious. Be Progressive. Be Conscious. Be Open.</p>
+          <h2 class="typewriter">Welcome back, Sara</h2>
+            <p class="typewriter delay-1 muted">Be Brave. Be Ambitious. Be Progressive. Be Conscious. Be Open.</p>
           <div class="kpis">
             <div class="kpi">
               <div class="row" style="justify-content:space-between">
