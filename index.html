@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>"B" Open</title>
+<title><em class="animated-italic">"B"</em> Open</title>
 <style>
   #preloader {
   position: fixed;
@@ -142,6 +142,11 @@
   .sensor-widget{display:flex;gap:.6rem;align-items:center;background:#fff;border:1px solid #eee;padding:.4rem .6rem;border-radius:10px}
   .dot{width:10px;height:10px;border-radius:50%}
   .dot.green{background:#22c55e}.dot.orange{background:#f59e0b}.dot.red{background:#ef4444}
+.animated-italic {
+  font-style: italic;
+  display: inline-block;
+  animation: pulse 1.5s ease-in-out infinite, fadeInOut 2s ease-in-out infinite;
+}
 </style>
 </head>
 <body>
@@ -162,7 +167,7 @@
   <img src="logo.svg" alt="Bapco Logo" class="logo-img" onerror="this.style.display='none'; this.parentElement.textContent='B';">
 </div>
         <div>
-          <div class="title">Bapco Open</div>
+          <div class="title"><em class="animated-italic">"B"</em> Open</div>
           <div class="filters">
             <span class="sensor-widget"><span class="dot orange"></span><strong>PM2.5:</strong> 31 µg/m³ Moderate</span>
             <span class="sensor-widget"><span class="dot red"></span><strong>Heat Index:</strong> 57°C Caution</span>
